@@ -10,7 +10,7 @@ import javax.swing.DefaultListModel;
 
 /**
  *
- * @author chich
+ * @author chichex
  */
 public class Interfaz extends javax.swing.JFrame {
 
