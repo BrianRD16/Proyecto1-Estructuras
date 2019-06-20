@@ -1,12 +1,12 @@
 package Proyecto.Main;
 
+import Proyecto.Errores.errorCiudad;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import javax.swing.DefaultListModel;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -15,11 +15,29 @@ import javax.swing.DefaultListModel;
 public class Interfaz extends javax.swing.JFrame {
 
     public DefaultListModel list = new DefaultListModel();
-    
+    public String ruta = "src/Proyecto/Repositorio/ciudades.txt";
+    public File archivo = new File(ruta);
+    public FileWriter fichero = null;
+    public PrintWriter pw = null;
+    public FileReader fr = null;
+    public BufferedReader br = null;
     
     public Interfaz() {
         initComponents();
+        listaCiudades.setModel(list);
         this.setExtendedState(MAXIMIZED_BOTH);
+        try{
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine())!= null) {
+                list.addElement(linea);
+                listaCiudadesEliminar.addItem(linea);
+            }
+            fr.close();
+        }catch(Exception e){
+             e.printStackTrace();
+        }
     }
 
     /**
@@ -163,21 +181,77 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void agregarCiudadBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCiudadBotonActionPerformed
-        listaCiudades.setModel(list);
-        String a = agregarCiudadTexto.getText();
-        list.addElement(a);
-        listaCiudadesEliminar.addItem(a);
-        agregarCiudadTexto.setText("");
-        this.paint(this.getGraphics());
+        if(agregarCiudadTexto.getText().equals("")){
+            errorCiudad err = new errorCiudad();
+            err.setVisible(true);
+        }else{
+            String a = agregarCiudadTexto.getText();
+            list.addElement(a);
+            listaCiudadesEliminar.addItem(a);
+            agregarCiudadTexto.setText("");
+            try
+            {
+                fichero = new FileWriter(ruta, true);
+                pw = new PrintWriter(fichero);
+                pw.println(a);
+                fichero.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            this.paint(this.getGraphics());
+        }
+        
+        
     }//GEN-LAST:event_agregarCiudadBotonActionPerformed
 
     private void EliminarCiudadBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarCiudadBotonActionPerformed
+        eliminarCiudad(archivo, listaCiudadesEliminar.getSelectedItem().toString());
         list.removeElement(listaCiudadesEliminar.getSelectedItem());
         listaCiudadesEliminar.removeItem(listaCiudadesEliminar.getSelectedItem());
-        
         this.paint(this.getGraphics());
     }//GEN-LAST:event_EliminarCiudadBotonActionPerformed
 
+    public void eliminarCiudad(File file, String ciudad){
+        String aux = "src/Proyecto/Repositorio/auxiliar.txt";
+        File auxF = new File(aux);
+        
+        try{
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            fichero = new FileWriter(aux, true);
+            pw = new PrintWriter(fichero);
+            String linea;
+            
+            while ((linea = br.readLine())!= null) {
+                if(linea.equals(ciudad)){
+                    continue;
+                }else{
+                    pw.println(linea);
+                }
+            }
+            fichero.close();
+            fr.close();
+            
+            fichero = new FileWriter(file);
+            pw = new PrintWriter(fichero);
+            fr = new FileReader(aux);
+            br = new BufferedReader(fr);
+            
+            while ((linea = br.readLine())!= null) {
+                pw.println(linea);
+            }
+            fr.close();
+            fichero.close();
+            
+            fichero = new FileWriter(aux);
+            pw = new PrintWriter(fichero);
+            fichero.close();
+        }catch(Exception e){
+             e.printStackTrace();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
