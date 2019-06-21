@@ -5,6 +5,14 @@
  */
 package Proyecto.Main;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author chich
@@ -14,9 +22,49 @@ public class distancias extends javax.swing.JFrame {
     /**
      * Creates new form distancias
      */
+    
+    public String ruta = "src/Proyecto/Repositorio/ciudades.txt";
+    public File archivo = new File(ruta);
+    public FileReader fr = null;
+    public BufferedReader br = null;
+    public DefaultTableModel dt = null;
+    
     public distancias() {
         initComponents();
         this.setLocationRelativeTo(null);
+        try{
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            dt = new DefaultTableModel();
+            tablaCiudades.setModel(dt);
+            String linea;
+            int rep = 0;
+            int fila = 1;
+            dt.addColumn("Interseccion");
+            while ((linea = br.readLine())!= null) {
+                dt.addColumn(linea);
+                fila++;
+            }
+            fr.close();
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            for (int i = 0; i < fila-1; i++) {
+                Object[] filas = new Object[fila];
+                for (int j = 0; j < filas.length; j++) {
+                    if(j == 0){
+                        linea = br.readLine();
+                        filas[j] = linea;
+                    }
+                    else{
+                        filas[j] = 0;
+                    }
+                }
+                dt.addRow(filas);
+            }
+            fr.close();
+        }catch(Exception e){
+             e.printStackTrace();
+        }
     }
 
     /**
@@ -29,38 +77,40 @@ public class distancias extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaCiudades = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCiudades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Ciudades", null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "", "", "", "", ""
+
             }
         ));
-        jTable1.setRowHeight(20);
-        jTable1.getTableHeader().setResizingAllowed(false);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        tablaCiudades.setRowHeight(20);
+        tablaCiudades.getTableHeader().setResizingAllowed(false);
+        tablaCiudades.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tablaCiudades);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 869, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -103,6 +153,6 @@ public class distancias extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaCiudades;
     // End of variables declaration//GEN-END:variables
 }
