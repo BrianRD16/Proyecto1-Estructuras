@@ -10,10 +10,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class DibujarGrafo extends javax.swing.JFrame {
 
-   Pintar pintar = new Pintar();
-   Grafo grafo = new Grafo();
+    Pintar pintar = new Pintar();
+    Grafo grafo = new Grafo();
+    
+    public static void R_repaint(int tope, Grafo grafo) {//pinta lo q esta antes en el panel 
+        for (int j = 0; j < tope; j++) {
+            for (int k = 0; k < tope; k++) {
+                if (grafo.getmAdyacencia(j, k) == 1)
+                    Pintar.pintarLinea(jPanel2.getGraphics(),grafo.getCordeX(j),grafo.getCordeY(j), grafo.getCordeX(k), grafo.getCordeY(k),grafo.getmCoeficiente(j, k));
+            }
+        }
+        for (int j = 0; j < tope; j++) 
+            Pintar.pintarCirculo(jPanel2.getGraphics(), grafo.getCordeX(j),grafo.getCordeY(j),String.valueOf(grafo.getNombre(j)));
+    }
  
     public static int ingresarNodoOrigen(String nodoOrige, String noExiste,int tope) {
         int nodoOrigen = 0;
@@ -48,15 +59,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if ((xxx + 2) > grafo.getCordeX(j) && xxx < (grafo.getCordeX(j) + 13) && (yyy + 2) > grafo.getCordeY(j) && yyy<(grafo.getCordeY(j) + 13)) {
                 if (n == 0) {
                     id = j;
-                    Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null,Color.orange);
+                    Pintar.clickSobreNodo(jPanel2.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null,Color.orange);
                     n++;                   
                 } else {
                     id2 = j;
                     n++;
-                    Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null,Color.orange);
+                    Pintar.clickSobreNodo(jPanel2.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null,Color.orange);
                     if (id == id2) { // si id == id2 por q se volvio a dar click sobre el mismos nodo, se cancela el click anterio
                         n = 0;
-                        Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(id), grafo.getCordeY(id), String.valueOf(grafo.getNombre(id)));
+                        Pintar.pintarCirculo(jPanel2.getGraphics(), grafo.getCordeX(id), grafo.getCordeY(id), String.valueOf(grafo.getNombre(id)));
                         id = -1;
                         id2 = -1;
                     }
@@ -78,7 +89,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 nn++;
                 n = 0;
                 id = -1;
-                Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null, Color.GREEN);  
+                Pintar.clickSobreNodo(jPanel2.getGraphics(), grafo.getCordeX(j), grafo.getCordeY(j), null, Color.GREEN);  
                 break;
             }
         }
@@ -94,7 +105,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
     
-    public VentanaPrincipal() { 
+    public DibujarGrafo() { 
         initComponents();  
         jDialog1.setLocationRelativeTo(null);
     }
@@ -105,7 +116,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jDialog1 = new javax.swing.JDialog();
         jFileChooser2 = new javax.swing.JFileChooser();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jmapa = new javax.swing.JLabel();
 
         jDialog1.setMinimumSize(new java.awt.Dimension(700, 450));
@@ -126,42 +137,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(141, 141, 141));
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 102, 102)));
-        jPanel1.setMinimumSize(new java.awt.Dimension(770, 522));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel2.setBackground(new java.awt.Color(141, 141, 141));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 102, 102)));
+        jPanel2.setMinimumSize(new java.awt.Dimension(770, 522));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel2MouseMoved(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
+                jPanel2MouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel1MousePressed(evt);
+                jPanel2MousePressed(evt);
             }
         });
-        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jPanel1MouseMoved(evt);
-            }
-        });
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jPanel2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel1KeyPressed(evt);
+                jPanel2KeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jPanel1KeyReleased(evt);
+                jPanel2KeyReleased(evt);
             }
         });
-        jPanel1.setLayout(null);
-        jPanel1.add(jmapa);
-        jmapa.setBounds(10, 10, 750, 500);
+        jPanel2.setLayout(null);
+        jPanel2.add(jmapa);
+        jmapa.setBounds(10, 10, 440, 290);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(210, 10, 770, 520);
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(10, 10, 460, 310);
 
-        setSize(new java.awt.Dimension(1012, 623));
+        setSize(new java.awt.Dimension(497, 376));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
         int xxx, yyy;
         xxx = evt.getX();
         yyy = evt.getY();
@@ -179,7 +190,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     grafo.setCordeX(tope, xxx);
                     grafo.setCordeY(tope, yyy);
                     grafo.setNombre(tope, tope);
-                    Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)));
+                    Pintar.pintarCirculo(jPanel2.getGraphics(), grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)));
                 tope++;          
                 } 
                 else JOptionPane.showMessageDialog(null,"Se ha llegado al Maximo de nodos..");
@@ -192,30 +203,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 grafo.setmAdyacencia(id, id2, 1);
                 grafo.setmCoeficiente(id2, id, ta);
                 grafo.setmCoeficiente(id, id2, ta);
-                Pintar.pintarLinea(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id), grafo.getCordeX(id2), grafo.getCordeY(id2), ta);
-                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id),String.valueOf(grafo.getNombre(id)));
-                Pintar.pintarCirculo(jPanel1.getGraphics(),grafo.getCordeX(id2), grafo.getCordeY(id2),String.valueOf(grafo.getNombre(id2)));
+                Pintar.pintarLinea(jPanel2.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id), grafo.getCordeX(id2), grafo.getCordeY(id2), ta);
+                Pintar.pintarCirculo(jPanel2.getGraphics(),grafo.getCordeX(id), grafo.getCordeY(id),String.valueOf(grafo.getNombre(id)));
+                Pintar.pintarCirculo(jPanel2.getGraphics(),grafo.getCordeX(id2), grafo.getCordeY(id2),String.valueOf(grafo.getNombre(id2)));
                 id = -1;
                 id2 = -1;
             }
         }
-    }//GEN-LAST:event_jPanel1MousePressed
+    }//GEN-LAST:event_jPanel2MousePressed
 
-    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
+    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel2KeyPressed
      // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel1KeyPressed
+    }//GEN-LAST:event_jPanel2KeyPressed
 
-    private void jPanel1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyReleased
+    private void jPanel2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel2KeyReleased
      
-    }//GEN-LAST:event_jPanel1KeyReleased
+    }//GEN-LAST:event_jPanel2KeyReleased
 
-    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
+    private void jPanel2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseMoved
        // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel1MouseMoved
+    }//GEN-LAST:event_jPanel2MouseMoved
 
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel1MouseClicked
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     private void jFileChooser2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser2ActionPerformed
         JFileChooser selectorArchios = (JFileChooser) evt.getSource();
@@ -240,7 +251,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFileChooser jFileChooser2;
-    public static javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jmapa;
     // End of variables declaration//GEN-END:variables
 }

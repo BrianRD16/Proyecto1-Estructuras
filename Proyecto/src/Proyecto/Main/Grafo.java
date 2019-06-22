@@ -61,4 +61,5 @@ public class Grafo {
     public void crearEnGrafo(int i){
         enGrafo = new int [i]; 
     }
+    
 }

@@ -1,9 +1,9 @@
 
 package Proyecto.Main;
 
-import static Proyecto.Main.VentanaPrincipal.ingresarNodoOrigen;
-import static Proyecto.Main.VentanaPrincipal.jPanel1;
+import static Proyecto.Main.DibujarGrafo.ingresarNodoOrigen;
 import java.awt.Color;
+import static Proyecto.Main.DibujarGrafo.jPanel2;
 
 public class Prim {
     private int cumulado;
@@ -40,7 +40,7 @@ public class Prim {
     
     public void prim() {
         this.nodoOrigen = ingresarNodoOrigen("Ingrese Nodo Origen..","nodo Origen No existe", tope);
-        jPanel1.paint(jPanel1.getGraphics());
+        jPanel2.paint(jPanel2.getGraphics());
         grafo.crearEnGrafo(tope);
         grafo.setEnGrafo(0, nodoOrigen);
         //algoritmo de Prim ---->>
@@ -70,9 +70,9 @@ public class Prim {
                 }
             } //fin for (int j = 0; j < tamano; j++)
             if (aumentaTamano == true) {
-                Pintar.pintarCamino(jPanel1.getGraphics(),grafo.getCordeX(nodoApuntador), grafo.getCordeY(nodoApuntador),grafo.getCordeX(nodoApuntado), grafo.getCordeY(nodoApuntado),Color.red); 
-                Pintar.clickSobreNodo(jPanel1.getGraphics(),grafo.getCordeX(nodoApuntador), grafo.getCordeY(nodoApuntador), null,Color. red);
-                Pintar.clickSobreNodo(jPanel1.getGraphics(),grafo.getCordeX(nodoApuntado), grafo.getCordeY(nodoApuntado), null, Color.red);
+                Pintar.pintarCamino(jPanel2.getGraphics(),grafo.getCordeX(nodoApuntador), grafo.getCordeY(nodoApuntador),grafo.getCordeX(nodoApuntado), grafo.getCordeY(nodoApuntado),Color.red); 
+                Pintar.clickSobreNodo(jPanel2.getGraphics(),grafo.getCordeX(nodoApuntador), grafo.getCordeY(nodoApuntador), null,Color. red);
+                Pintar.clickSobreNodo(jPanel2.getGraphics(),grafo.getCordeX(nodoApuntado), grafo.getCordeY(nodoApuntado), null, Color.red);
                 grafo.setEnGrafo(tamano, nodoApuntado);
                 this.tamano++;
                 this.aumentaTamano = false;
