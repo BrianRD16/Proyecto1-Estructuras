@@ -1,9 +1,9 @@
 
 package Proyecto.Main;
 
+import static Proyecto.Main.VentanaPrincipal.jPanel1;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import static Proyecto.Main.DibujarGrafo.jPanel2;
 
 public class Dijkstra {
     private Grafo grafo;
@@ -33,8 +33,8 @@ public class Dijkstra {
             nodo[i] = new Nodo();
          
         if (permanente != nodoFin) {
-            jPanel2.paint(jPanel2.getGraphics());
-            Pintar.clickSobreNodo(jPanel2.getGraphics(), grafo.getCordeX(permanente), grafo.getCordeY(permanente), null,Color.GREEN); // pinta de color GREEN los nodos
+            jPanel1.paint(jPanel1.getGraphics());
+            Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(permanente), grafo.getCordeY(permanente), null,Color.GREEN); // pinta de color GREEN los nodos
             
             nodo[permanente].setVisitado(true);
             nodo[permanente].setNombre(permanente);
@@ -74,12 +74,12 @@ public class Dijkstra {
             if (auxi.getPredecesor() == null)
                 JOptionPane.showMessageDialog(null,"No se Pudo LLegar Al Nodo "+nodoFin);
             while (auxi.getPredecesor() != null) {
-                Pintar.pintarCamino(jPanel2.getGraphics(), grafo.getCordeX(auxi.getNombre()), grafo.getCordeY(auxi.getNombre()), grafo.getCordeX(auxi.getPredecesor().getNombre()), grafo.getCordeY(auxi.getPredecesor().getNombre()),Color.GREEN);
-                Pintar.clickSobreNodo(jPanel2.getGraphics(), grafo.getCordeX(auxi.getNombre()), grafo.getCordeY(auxi.getNombre()), null,Color.GREEN);
+                Pintar.pintarCamino(jPanel1.getGraphics(), grafo.getCordeX(auxi.getNombre()), grafo.getCordeY(auxi.getNombre()), grafo.getCordeX(auxi.getPredecesor().getNombre()), grafo.getCordeY(auxi.getPredecesor().getNombre()),Color.GREEN);
+                Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(auxi.getNombre()), grafo.getCordeY(auxi.getNombre()), null,Color.GREEN);
                 auxi=auxi.getPredecesor();
             }
-            Pintar.clickSobreNodo(jPanel2.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), null,Color.GREEN);
+            Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), null,Color.GREEN);
         }
-        else Pintar.clickSobreNodo(jPanel2.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), null,Color.GREEN);
+        else Pintar.clickSobreNodo(jPanel1.getGraphics(), grafo.getCordeX(nodoFin), grafo.getCordeY(nodoFin), null,Color.GREEN);
     }
 }
