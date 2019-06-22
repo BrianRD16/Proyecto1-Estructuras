@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class DibujarGrafo extends javax.swing.JFrame {
 
    Pintar pintar = new Pintar();
    Grafo grafo = new Grafo();
@@ -94,7 +94,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
     
-    public VentanaPrincipal() { 
+    public DibujarGrafo() { 
         initComponents();  
         jDialog1.setLocationRelativeTo(null);
     }
@@ -129,17 +129,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(141, 141, 141));
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 102, 102)));
         jPanel1.setMinimumSize(new java.awt.Dimension(770, 522));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel1MouseMoved(evt);
+            }
+        });
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel1MousePressed(evt);
-            }
-        });
-        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jPanel1MouseMoved(evt);
             }
         });
         jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -152,12 +152,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel1.setLayout(null);
         jPanel1.add(jmapa);
-        jmapa.setBounds(10, 10, 750, 500);
+        jmapa.setBounds(10, 10, 410, 230);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(210, 10, 770, 520);
+        jPanel1.setBounds(10, 10, 430, 250);
 
-        setSize(new java.awt.Dimension(1012, 623));
+        setSize(new java.awt.Dimension(469, 318));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

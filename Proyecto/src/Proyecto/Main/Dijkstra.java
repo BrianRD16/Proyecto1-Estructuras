@@ -1,7 +1,7 @@
 
 package Proyecto.Main;
 
-import static Proyecto.Main.VentanaPrincipal.jPanel1;
+import static Proyecto.Main.DibujarGrafo.jPanel1;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
