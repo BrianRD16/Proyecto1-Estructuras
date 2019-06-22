@@ -4,7 +4,12 @@ package Proyecto.Main;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -14,8 +19,36 @@ public class DibujarGrafo extends javax.swing.JFrame {
 
    Pintar pintar = new Pintar();
    Grafo grafo = new Grafo();
+   public String ruta = "src/Proyecto/Repositorio/ciudades.txt";
+   public File archivo = new File(ruta);
+   private int tope = 0; // lleva el # de nodos creado
+   private int nodoFin;
+   private int permanente;
+   int n = 0, nn = 0, id, id2; // permite controlar que se halla dado click sobre un nodo
+   private int aristaMayor;
+   public FileReader fr = null;
+   public BufferedReader br = null;
+   public String[] nombre = new String[21];
+
  
-    public static int ingresarNodoOrigen(String nodoOrige, String noExiste,int tope) {
+   public DibujarGrafo(){
+       initComponents();
+       try {
+           fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String linea;
+            int i = 0;
+            while ((linea = br.readLine())!= null) {
+                nombre[i] = linea;
+                i++;
+            }
+            fr.close();
+       } catch (IOException ex) {
+           Logger.getLogger(DibujarGrafo.class.getName()).log(Level.SEVERE, null, ex);
+       }
+   }
+   
+   public static int ingresarNodoOrigen(String nodoOrige, String noExiste, int tope) {
         int nodoOrigen = 0;
             try {
                 nodoOrigen = Integer.parseInt(JOptionPane.showInputDialog("" + nodoOrige));
@@ -94,11 +127,6 @@ public class DibujarGrafo extends javax.swing.JFrame {
         }
     }
     
-    public DibujarGrafo() { 
-        initComponents();  
-        jDialog1.setLocationRelativeTo(null);
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -162,6 +190,7 @@ public class DibujarGrafo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        
         int xxx, yyy;
         xxx = evt.getX();
         yyy = evt.getY();
@@ -175,10 +204,10 @@ public class DibujarGrafo extends javax.swing.JFrame {
         }
         else {
             if (!cicDerechoSobreNodo(xxx,yyy)) { // si clik sobre nodo es falso entra
-                if (tope < 50) {
+                if (tope < 20) {
                     grafo.setCordeX(tope, xxx);
                     grafo.setCordeY(tope, yyy);
-                    grafo.setNombre(tope, tope);
+                    grafo.setNombre(tope, nombre[tope]);
                     Pintar.pintarCirculo(jPanel1.getGraphics(), grafo.getCordeX(tope), grafo.getCordeY(tope),String.valueOf(grafo.getNombre(tope)));
                 tope++;          
                 } 
@@ -231,12 +260,7 @@ public class DibujarGrafo extends javax.swing.JFrame {
     public static void main(String args[]) {        
         
     }
-    private int tope = 0; // lleva el # de nodos creado
-    private int nodoFin;
-    private int permanente;
-    int n = 0, nn = 0, id, id2; // permite controlar que se halla dado click sobre un nodo
-    private int aristaMayor;
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog jDialog1;
     private javax.swing.JFileChooser jFileChooser2;

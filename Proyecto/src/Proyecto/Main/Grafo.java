@@ -6,7 +6,7 @@ public class Grafo {
     private int mAdyacencia [][] = new int [51][51];
     private int cordeX [] = new int [51];
     private int cordeY [] = new int [51];
-    private int nombre [] = new int [51];
+    private String nombre [] = new String [51];
     private int enGrafo [];
     
     public Grafo(){}
@@ -27,7 +27,7 @@ public class Grafo {
         return cordeY[i];
     }
 
-    public int getNombre(int i) {
+    public String getNombre(int i) {
         return nombre[i];
     }
 
@@ -51,7 +51,7 @@ public class Grafo {
         this.cordeY[i] = cordeY;
     }
 
-    public void setNombre(int i,int nombre) {
+    public void setNombre(int i,String nombre) {
         this.nombre[i] = nombre;
     }
 
