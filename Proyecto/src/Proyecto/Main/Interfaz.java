@@ -17,10 +17,11 @@ public class Interfaz extends javax.swing.JFrame {
     public PrintWriter pw = null;
     public FileReader fr = null;
     public BufferedReader br = null;
+    
     public Interfaz() {
         initComponents();
-        this.setLocationRelativeTo(null);
         listaCiudades.setModel(list);
+        this.setExtendedState(MAXIMIZED_BOTH);
         try{
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
@@ -31,7 +32,7 @@ public class Interfaz extends javax.swing.JFrame {
             }
             fr.close();
         }catch(Exception e){
-            e.printStackTrace();
+             e.printStackTrace();
         }
     }
     @SuppressWarnings("unchecked")
@@ -54,7 +55,8 @@ public class Interfaz extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(250, 250));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(550, 550));
+        setPreferredSize(new java.awt.Dimension(850, 500));
+        setResizable(false);
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -73,9 +75,7 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,6 +105,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         listaCiudades.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        listaCiudades.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listaCiudades.setRequestFocusEnabled(false);
         listaCiudades.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.setViewportView(listaCiudades);
@@ -155,19 +156,18 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(agregarCiudadTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(agregarCiudadBoton))
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(agregarCiudadTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(agregarCiudadBoton))
+                        .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(listaCiudadesEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
@@ -219,9 +219,6 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new DibujarGrafo().setVisible(true);
-        distancias distancias = new distancias();
-        distancias.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void eliminarCiudad(File file, String ciudad){
@@ -260,7 +257,7 @@ public class Interfaz extends javax.swing.JFrame {
             pw = new PrintWriter(fichero);
             fichero.close();
         }catch(Exception e){
-            e.printStackTrace();
+             e.printStackTrace();
         }
     }
     
@@ -305,10 +302,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField agregarCiudadTexto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaCiudades;
