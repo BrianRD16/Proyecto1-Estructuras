@@ -29,6 +29,7 @@ public class DibujarGrafo extends javax.swing.JFrame {
    public FileReader fr = null;
    public BufferedReader br = null;
    public String[] nombre = new String[21];
+   public int clineas = 0;
 
  
    public DibujarGrafo(){
@@ -41,6 +42,7 @@ public class DibujarGrafo extends javax.swing.JFrame {
             while ((linea = br.readLine())!= null) {
                 nombre[i] = linea;
                 i++;
+                clineas++;
             }
             fr.close();
        } catch (IOException ex) {
@@ -204,7 +206,7 @@ public class DibujarGrafo extends javax.swing.JFrame {
         }
         else {
             if (!cicDerechoSobreNodo(xxx,yyy)) { // si clik sobre nodo es falso entra
-                if (tope < 20) {
+                if (tope < clineas) {
                     grafo.setCordeX(tope, xxx);
                     grafo.setCordeY(tope, yyy);
                     grafo.setNombre(tope, nombre[tope]);

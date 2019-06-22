@@ -1,3 +1,6 @@
 bogota
 caracas
 chile
+maturin
+quito
+san fernando
