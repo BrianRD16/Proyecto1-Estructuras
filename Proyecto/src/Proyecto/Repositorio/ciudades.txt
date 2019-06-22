@@ -1,6 +1,3 @@
+bogota
 caracas
-madrid
-san felipe
-maturin
-tucorazon
-brian
+chile
